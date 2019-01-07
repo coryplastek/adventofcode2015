@@ -30,19 +30,9 @@ func getMD5Hash(text string) string {
 func getHashInputNumber(key string, hashPrefix string) int {
 	// calculate an md5 hash of a secret key (puzzle input) + a number
 	// find the lowest positive number that produces the desired hash value
-	// which is a value that starts with five zeros
+	// which is a value that starts with provided prefix
 	inputNumber := 0
-	for true {
-		// calculate md5 hash
-		hashInput := key + strconv.Itoa(inputNumber)
-		hashString := getMD5Hash(hashInput)
-		// fmt.Printf("%d + %s = %s", i, key, hashString)
-
-		if strings.HasPrefix(hashString, hashPrefix) {
-			// fmt.Printf("%d, hash string: %s\n\n", i, hashString)
-			break
-		}
-
+	for !(strings.HasPrefix(getMD5Hash(key+strconv.Itoa(inputNumber)), hashPrefix)) {
 		inputNumber++
 	}
 
